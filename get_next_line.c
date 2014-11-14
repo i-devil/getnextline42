@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/14 18:28:12 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/14 20:15:51 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 #include <stdio.h>
 
 
-int			get_next_line(int const fd, char **line)
-{
-}
 
 void		print(void *s, int size)
 {
@@ -62,14 +59,14 @@ int			count_line(t_list *lst, int local)
 	return (i);
 }
 
-void		fill_line(t_list **lst, char *str, int *pos)
+int			fill_line(t_list **lst, char *str, int *pos)
 {
 	char	*ret = str;
 	int		i;
 	char	*tmp;
 
 	tmp = (char *)(*lst)->content + *pos;
-	while (*tmp != '\n')
+	while (*tmp != '\n' || *tmp != EOF)
 	{
 		*str++ = *tmp++;
 		if (++(*pos) == (*lst)->content_size)
@@ -79,44 +76,45 @@ void		fill_line(t_list **lst, char *str, int *pos)
 			*pos = 0;
 		}
 	}
+	*str = 0;
+	if (*tmp == EOF)
+		return (0);
 	if (++(*pos) == (*lst)->content_size)
 	{
 		*lst = (*lst)->next;
 		*pos = 0;
 	}
-	*str = '\0';
-	printf("ret = %s\n", ret);
+	return (1);
+}
+
+int			get_next_line(int const fd, char **line)
+{
+	static t_list	*lst = NULL;
+	static int		pos = 0;
+	int			ret;
+	char		buff[BUFF_SIZE];
+	char		*str;
+
+	if (!lst)
+		while (ret = read(fd, buff, BUFF_SIZE))
+			ft_lstpushback(&lst, ft_lstnew((void *)buff, ret));
+	str = (char *)(malloc(sizeof(char) * count_line(lst, pos) + 1));
+	if (!str)
+		return (-1);
+	*line = str;
+	return (fill_line(&lst, str, &pos));
 }
 
 int		main()
 {
-	int			fd;
-	int			ret;
-	char		buff[BUFF_SIZE];
-	t_list		*lst;
-	static int	pos;
-	char		*str;
-	int			size;
-	t_list		*locallst;
+	int	fd;
+	char	*str;
 
-	pos = 0;
 	fd = open("42", 'r');
-	lst = NULL;
-	while (ret = read(fd, buff, BUFF_SIZE))
-		ft_lstpushback(&lst, ft_lstnew((void *)buff, ret));
-	locallst = lst;
-	while (locallst)
-	{
-		size = count_line(locallst, pos);
-		printf("size = %d\n", size);
-		str = (char *)(malloc(sizeof(char) * size + 1));
-		if (!str)
-			return;
-		fill_line(&locallst, str, &pos);
 	
-	}
+	while(get_next_line(fd, &str))
+		printf("%s\n", str);
 }
-
 
 
 
