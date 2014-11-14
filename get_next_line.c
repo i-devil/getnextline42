@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/14 20:15:51 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/14 20:19:13 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			fill_line(t_list **lst, char *str, int *pos)
 	char	*tmp;
 
 	tmp = (char *)(*lst)->content + *pos;
-	while (*tmp != '\n' || *tmp != EOF)
+	while (*tmp != '\n' && *tmp != EOF)
 	{
 		*str++ = *tmp++;
 		if (++(*pos) == (*lst)->content_size)
