@@ -6,41 +6,17 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/14 20:19:13 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/15 12:03:02 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <unistd.h>
 
-
-#include <stdio.h>
-
-
-
-void		print(void *s, int size)
+int			count_line(t_list *lst, unsigned int local)
 {
-	write(1, s, size);
-}
-
-void		ft_lstpushback(t_list **start, t_list *new)
-{
-	t_list	*lst;
-
-	lst = *start;
-	if (!(*start))
-		*start = new;
-	else
-	{
-		while (lst->next)
-			lst = lst->next;
-		lst->next = new;
-	}
-}
-
-int			count_line(t_list *lst, int local)
-{
-	char	*tmp;
-	int		i;
+	char				*tmp;
+	unsigned int		i;
 
 	i = 0;
 	tmp = (char *)lst->content + local;
@@ -54,19 +30,17 @@ int			count_line(t_list *lst, int local)
 			lst = lst->next;
 			tmp = (char *)(lst->content);
 			local = 0;
-		} 
+		}
 	}
 	return (i);
 }
 
-int			fill_line(t_list **lst, char *str, int *pos)
+int				fill_line(t_list **lst, char *str, unsigned int *pos)
 {
-	char	*ret = str;
-	int		i;
-	char	*tmp;
+	char					*tmp;
 
 	tmp = (char *)(*lst)->content + *pos;
-	while (*tmp != '\n' && *tmp != EOF)
+	while (*tmp != '\n')
 	{
 		*str++ = *tmp++;
 		if (++(*pos) == (*lst)->content_size)
@@ -77,8 +51,6 @@ int			fill_line(t_list **lst, char *str, int *pos)
 		}
 	}
 	*str = 0;
-	if (*tmp == EOF)
-		return (0);
 	if (++(*pos) == (*lst)->content_size)
 	{
 		*lst = (*lst)->next;
@@ -87,35 +59,22 @@ int			fill_line(t_list **lst, char *str, int *pos)
 	return (1);
 }
 
-int			get_next_line(int const fd, char **line)
+int							get_next_line(int const fd, char **line)
 {
-	static t_list	*lst = NULL;
-	static int		pos = 0;
-	int			ret;
-	char		buff[BUFF_SIZE];
-	char		*str;
+	static t_list			*lst = NULL;
+	static unsigned int		pos = 0;
+	unsigned int			ret;
+	char					buff[BUFF_SIZE];
+	static unsigned int		end = 0;
 
-	if (!lst)
-		while (ret = read(fd, buff, BUFF_SIZE))
+	if (!lst && end == 0)
+	{
+		end = 1;
+		while ((ret = read(fd, buff, BUFF_SIZE)))
 			ft_lstpushback(&lst, ft_lstnew((void *)buff, ret));
-	str = (char *)(malloc(sizeof(char) * count_line(lst, pos) + 1));
-	if (!str)
-		return (-1);
-	*line = str;
-	return (fill_line(&lst, str, &pos));
+	}
+	if (!lst && end == 1)
+		return (0);
+	*line = (char *)(malloc(sizeof(char) * count_line(lst, pos) + 1));
+	return (fill_line(&lst, *line, &pos));
 }
-
-int		main()
-{
-	int	fd;
-	char	*str;
-
-	fd = open("42", 'r');
-	
-	while(get_next_line(fd, &str))
-		printf("%s\n", str);
-}
-
-
-
-
