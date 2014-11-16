@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_simpledelone.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/13 11:27:38 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/16 11:33:00 by ide-vill         ###   ########.fr       */
+/*   Created: 2014/11/16 16:30:15 by ide-vill          #+#    #+#             */
+/*   Updated: 2014/11/16 16:50:20 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void		ft_lstsimpledelone(t_list **alst)
 {
-	if (*alst && del)
+	if (*alst)
 	{
-		ft_lstdel(&(*alst)->next, del);
-		ft_lstdelone(alst, del);
+		free(*alst);
+		*alst = NULL;
 	}
 }
