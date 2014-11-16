@@ -6,17 +6,17 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/15 12:03:02 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/16 11:06:13 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 
-int			count_line(t_list *lst, unsigned int local)
+int				count_line(t_list *lst, unsigned int local)
 {
-	char				*tmp;
-	unsigned int		i;
+	char					*tmp;
+	unsigned int			i;
 
 	i = 0;
 	tmp = (char *)lst->content + local;
@@ -59,7 +59,7 @@ int				fill_line(t_list **lst, char *str, unsigned int *pos)
 	return (1);
 }
 
-int							get_next_line(int const fd, char **line)
+int				get_next_line(int const fd, char **line)
 {
 	static t_list			*lst = NULL;
 	static unsigned int		pos = 0;
@@ -71,7 +71,7 @@ int							get_next_line(int const fd, char **line)
 	{
 		end = 1;
 		while ((ret = read(fd, buff, BUFF_SIZE)))
-			ft_lstpushback(&lst, ft_lstnew((void *)buff, ret));
+			ft_lstsmartpushback(&lst, ft_lstnew((void *)buff, ret));
 	}
 	if (!lst && end == 1)
 		return (0);

@@ -6,7 +6,7 @@
 #    By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/09 18:15:51 by ide-vill          #+#    #+#              #
-#    Updated: 2014/11/13 11:56:47 by ide-vill         ###   ########.fr        #
+#    Updated: 2014/11/16 10:53:14 by ide-vill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC		= ft_bzero.c ft_memset.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		  ft_putchar.c ft_putstr.c ft_putnbr.c ft_putendl.c ft_putchar_fd.c \
 		  ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		  ft_lstdel.c ft_lstiter.c ft_lstnew.c ft_lstadd.c ft_lstdelone.c \
+		  ft_lstpushback.c  ft_lstsmartpushback.c \
 
 OBJ		= $(SRC:.c=.o)
 CC		= gcc

@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/08 20:39:30 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/13 11:48:24 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/16 10:53:50 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstpushback(t_list **start, t_list *new);
+void				ft_lstsmartpushback(t_list **start, t_list *new);
 
 char				*ft_strcpy(char *dst, const char *src);
 size_t				ft_strlen(const char *str);
