@@ -6,12 +6,11 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/16 11:06:13 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/16 17:00:24 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
 
 int				count_line(t_list *lst, unsigned int local)
 {
@@ -28,6 +27,8 @@ int				count_line(t_list *lst, unsigned int local)
 		if (local == lst->content_size)
 		{
 			lst = lst->next;
+			if (!lst)
+				break ;
 			tmp = (char *)(lst->content);
 			local = 0;
 		}
@@ -46,6 +47,8 @@ int				fill_line(t_list **lst, char *str, unsigned int *pos)
 		if (++(*pos) == (*lst)->content_size)
 		{
 			*lst = (*lst)->next;
+			if (!(*lst))
+				return (1);
 			tmp = (char *)(*lst)->content;
 			*pos = 0;
 		}
@@ -67,6 +70,8 @@ int				get_next_line(int const fd, char **line)
 	char					buff[BUFF_SIZE];
 	static unsigned int		end = 0;
 
+	if (!fd || BUFF_SIZE <= 0)
+		return (-1);
 	if (!lst && end == 0)
 	{
 		end = 1;
@@ -74,7 +79,10 @@ int				get_next_line(int const fd, char **line)
 			ft_lstsmartpushback(&lst, ft_lstnew((void *)buff, ret));
 	}
 	if (!lst && end == 1)
+	{
+		ft_lstsimpledel(&lst);
 		return (0);
+	}
 	*line = (char *)(malloc(sizeof(char) * count_line(lst, pos) + 1));
 	return (fill_line(&lst, *line, &pos));
 }
