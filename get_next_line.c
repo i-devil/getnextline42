@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/17 17:28:31 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/17 17:37:19 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				get_next_line(int const fd, char **line)
 {
 	static t_list			*lst = NULL;
 	static unsigned int		pos = 0;
-	unsigned int			ret;
+	int						ret;
 	char					buff[BUFF_SIZE];
 	static unsigned int		end = 0;
 
