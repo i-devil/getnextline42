@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/16 17:00:24 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/17 17:28:31 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,17 @@ int				get_next_line(int const fd, char **line)
 	char					buff[BUFF_SIZE];
 	static unsigned int		end = 0;
 
-	if (!fd || BUFF_SIZE <= 0)
+	if (!fd || BUFF_SIZE <= 0 || !line || !(*line))
 		return (-1);
 	if (!lst && end == 0)
 	{
 		end = 1;
 		while ((ret = read(fd, buff, BUFF_SIZE)))
+		{
+			if (ret == 0)
+				return (-1);
 			ft_lstsmartpushback(&lst, ft_lstnew((void *)buff, ret));
+		}
 	}
 	if (!lst && end == 1)
 	{
