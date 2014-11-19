@@ -6,14 +6,14 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:55 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/16 17:12:06 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/19 10:55:24 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 100
 
 # include <unistd.h>
 # include <fcntl.h>
