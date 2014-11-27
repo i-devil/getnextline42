@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:10 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/17 17:37:19 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/27 18:27:02 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int				fill_line(t_list **lst, char *str, unsigned int *pos)
 		if (++(*pos) == (*lst)->content_size)
 		{
 			*lst = (*lst)->next;
+			if (*tmp != '\n' && !(*lst))
+				return (0);
 			if (!(*lst))
 				return (1);
 			tmp = (char *)(*lst)->content;
@@ -70,14 +72,14 @@ int				get_next_line(int const fd, char **line)
 	char					buff[BUFF_SIZE];
 	static unsigned int		end = 0;
 
-	if (!fd || BUFF_SIZE <= 0 || !line || !(*line))
+	if (fcntl(fd, F_GETFL) == -1 || BUFF_SIZE <= 0 || !line)
 		return (-1);
 	if (!lst && end == 0)
 	{
 		end = 1;
 		while ((ret = read(fd, buff, BUFF_SIZE)))
 		{
-			if (ret == 0)
+			if (ret == -1)
 				return (-1);
 			ft_lstsmartpushback(&lst, ft_lstnew((void *)buff, ret));
 		}
