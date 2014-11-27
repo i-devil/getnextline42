@@ -6,7 +6,7 @@
 /*   By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/11 14:58:55 by ide-vill          #+#    #+#             */
-/*   Updated: 2014/11/27 17:09:51 by ide-vill         ###   ########.fr       */
+/*   Updated: 2014/11/27 19:24:01 by ide-vill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 int		get_next_line(int const fd, char **line);
 
