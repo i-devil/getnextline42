@@ -6,7 +6,7 @@
 #    By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/09 18:15:51 by ide-vill          #+#    #+#              #
-#    Updated: 2014/11/27 19:09:11 by ide-vill         ###   ########.fr        #
+#    Updated: 2014/11/27 19:13:13 by ide-vill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ OBJ		= $(SRC:.c=.o)
 CC		= gcc
 HEADER	= includes/
 FLAGS	= -Wall -Wextra -Werror
-INCLUDE	= libft.h
 
 all: $(NAME)
 
