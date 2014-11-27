@@ -6,7 +6,7 @@
 #    By: ide-vill <ide-vill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/09 18:15:51 by ide-vill          #+#    #+#              #
-#    Updated: 2014/11/16 16:41:57 by ide-vill         ###   ########.fr        #
+#    Updated: 2014/11/27 19:09:11 by ide-vill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC		= ft_bzero.c ft_memset.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 
 OBJ		= $(SRC:.c=.o)
 CC		= gcc
+HEADER	= includes/
 FLAGS	= -Wall -Wextra -Werror
 INCLUDE	= libft.h
 
@@ -40,7 +41,7 @@ $(NAME): $(OBJ)
 		@ranlib $(NAME)
 
 %.o: %.c
-	@$(CC) -I . -o $@ -c $? $(FLAGS)
+	@$(CC) -I $(HEADER) -o $@ -c $? $(FLAGS)
 
 .PHONY: clean fclean re
 
